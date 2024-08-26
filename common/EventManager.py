@@ -2,23 +2,35 @@ from common.SnakeToCamel import SnakeToCamel
 import tkinter as tk
 
 class EventManager:
-    def __init__(self, text_box1, text_box2):
-        self.text_box1 = text_box1
-        self.text_box2 = text_box2
+    def __init__(self, gui,gc):
+        self.gui = gui
+        # self.text_box2 = text_box2
+        self.inText=""
+        self.outText=""
+        self.gc=gc
 
     def convertText(self):
         stc = SnakeToCamel()
+        self.inText = self.gui.text_box1.get("1.0", tk.END)          
+        self.outText=""          
+        self.gui.text_box2.delete("1.0", tk.END)       
+        self.inArray = self.inText.split(',')                   
+        self.outArray=stc.convert(self.inArray)#             
         
-        inText = self.text_box1.get("1.0", tk.END)            
-        self.text_box2.delete("1.0", tk.END)          
+        # print(self.outArray)        
+        self.outText=stc.getOutStr()   
+        # print(inText)/
+        self.gc.getConfAndParams(self.gui,self.inArray,self.outArray)
+
         
-        arrResult=stc.convert(inText)#     
-        print(arrResult)
         
-        inText=stc.getOutStr()   
-        print(inText)
+        self.gc.showConfiguration()
+            
+        # self.dictTp["global"]["sets"]["keys"]="test"                        
+        self.gui.text_box2.insert(tk.END, self.outText)     
+              
+   
         
-        self.text_box2.insert(tk.END, inText)           
         
     def copiar_texto(self):
         inText = self.text_box1.get("1.0", tk.END)       # Obtener todo el texto del primer Text box

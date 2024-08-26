@@ -13,9 +13,8 @@ class SnakeToCamel():
         self.inArray = components
         return components[0] + ''.join(x.capitalize() for x in components[1:])
 
-    def convert(self,inStr):
-        self.inStr = inStr
-        self.inArray = inStr.split(',')
+    def convert(self,inArray):        
+        self.inArray = inArray
         self.outArray=[self.snakeToCamelCase(snake_str) for snake_str in self.inArray]
         return self.outArray
     
