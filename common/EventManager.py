@@ -24,7 +24,7 @@ class EventManager:
 
         
         
-        self.gc.showConfiguration()
+        # self.gc.showConfiguration()
             
         # self.dictTp["global"]["sets"]["keys"]="test"                        
         self.gui.text_box2.insert(tk.END, self.outText)     

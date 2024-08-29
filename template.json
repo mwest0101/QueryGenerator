@@ -72,9 +72,21 @@
 
                 
             }
-        }
-    }
-
+        },
+		"js":{		
+            "mysql":{
+                
+                    "find":{	                
+                        "HEAD01":"$query = <<<NATIVE_SQL ",
+                        "HEAD02":"$query = SELECT",
+                        "BODY01":"((sTabName).((key)) AS ((val)),",
+                        "FOOT01":"FROM ((bTabName)) ((sTabName))",
+                        "FOOT02":"WHERE ((sTabName)).((id)) =:((vId)) ",
+                        "FOOT03":"NATIVE_SQL;"                
+                    }
+			}
+		}   
+	}
 
 }
 

@@ -15,13 +15,14 @@ def recorrer_json(data, path=""):
             new_path = f"{path}[{index}]"
             recorrer_json(item, new_path)
     else:
-        print(f"Ruta: {path}, Valor: {data}")
+        pass
+        # print(f"Ruta: {path}, Valor: {data}")
 
 # Llamar a la función con tu diccionario JSON
 
 # Buscar todos los campos que contengan "((sourceValue))"
 search_value = "((sourceValue))"
 indices = recorrer_json(data, search_value)
-print(indices)
+# print(indices)
 
-print(f"Índices con valor '{search_value}': {indices}")
+# print(f"Índices con valor '{search_value}': {indices}")

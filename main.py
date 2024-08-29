@@ -18,18 +18,18 @@ class mainApp:
         self.tp=JsonReader(template_file)
         self.gc=GetConfiguration(self.tp)
         dictTp=self.tp.getStr()
-        self.gc.showConfiguration()
+        # self.gc.showConfiguration()
 
         self.config=self.jr.getStr()
 
         
-        self.interfaz = CGuiMenu(self.config)
-        self.eventos = EventManager(self.interfaz,self.gc)
-        self.interfaz.boton_copiar.config(command=self.eventos.convertText)
+        self.gui = CGuiMenu(self.config)
+        self.eventos = EventManager(self.gui,self.gc)
+        self.gui.boton_copiar.config(command=self.eventos.convertText)
         
 
     def ejecutar(self):
-        self.interfaz.ejecutar()
+        self.gui.ejecutar()
 
 
 # Ejecutar la aplicación
