@@ -22,8 +22,9 @@ class mainApp:
 
         self.config=self.jr.getStr()
 
+        # self.gc.loadLangaujes()
         
-        self.gui = CGuiMenu(self.config)
+        self.gui = CGuiMenu(self.config,self.gc)
         self.eventos = EventManager(self.gui,self.gc)
         self.gui.boton_copiar.config(command=self.eventos.convertText)
         

@@ -71,8 +71,64 @@
                     }
 
                 
+            },
+			"mysql":{
+                
+                    "find":{	                
+                        "HEAD01":"$query = <<<NATIVE_SQL ",
+                        "HEAD02":"$query = SELECT",
+                        "BODY01":"((sTabName).((key)) AS ((val)),",
+                        "FOOT01":"FROM ((bTabName)) ((sTabName))",
+                        "FOOT02":"WHERE ((sTabName)).((id)) =:((vId)) ",
+                        "FOOT03":"NATIVE_SQL;"                
+                    },
+                    "search":{	                
+                        "HEAD01":"$query = <<<NATIVE_SQL ",
+                        "HEAD02":"SELECT",
+                        "BODY01":"((sTabName).((key)) AS ((val)),",
+                        "FOOT01":"FROM ((tableName)) ((sTableName))",                        
+                        "FOOT02":"NATIVE_SQL;"                
+                    },
+                    "insert":{	           
+
+                        "HEAD01":"$query = <<<NATIVE_SQL",
+                        "HEAD02":"INSERT ((bTabName)) (",
+                        "BODY01":"((keys))",
+                        "BODY02":") VALUES (",
+                        "BODY03":"((values))",
+                        "BODY04":"$this->execute($query,[",                        
+                        "BODY05":"new PDOParam(':((val))',DataType::STRING,$boxType->packageData()->((val))()),",
+                        "FOOT01":"] );"
+                    },
+                    "save":{	           
+
+                        "HEAD01":"$query = <<<NATIVE_SQL",
+                        "HEAD02":"UPDATE ((bTabName)) ",
+                        "HEAD03":"SET",
+                        "BODY01":"((key))=:((val)),",
+                        "BODY02":"WHERE ((sTabName)).((id)) =:((vId)) ",
+                        "BODY03":"NATIVE_SQL;",
+                        "BODY04":"$this->execute($query,[",                        
+                        "BODY05":"new PDOParam(':((val))',DataType::STRING,$boxType->packageData()->((val))()),",
+                        "FOOT01":"] );"
+                    }
+
+                
             }
         },
+		"python":{		
+            "mysql":{
+                
+                    "find":{	                
+                        "HEAD01":"$query = <<<NATIVE_SQL ",
+                        "HEAD02":"$query = SELECT",
+                        "BODY01":"((sTabName).((key)) AS ((val)),",
+                        "FOOT01":"FROM ((bTabName)) ((sTabName))",
+                        "FOOT02":"WHERE ((sTabName)).((id)) =:((vId)) ",
+                        "FOOT03":"NATIVE_SQL;"                
+                    }
+			}
+		}, 
 		"js":{		
             "mysql":{
                 

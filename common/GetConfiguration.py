@@ -40,6 +40,24 @@ class GetConfiguration():
 		print(self.dictTp["global"]["sets"]["sep"])
 		print(self.dictTp["templates"])
   
+	def loadLangaujes(self):
+		for keyLanguaje in self.dictTp["templates"]:	
+			self.arrayLanguajes.append(keyLanguaje)		
+		return self.arrayLanguajes
+	
+	def loadDatabases(self,keyTemplate):
+		for key in self.dictTp["templates"][keyTemplate] :	
+			self.arrayDatabases.append(key)		
+		return self.arrayDatabases
+
+	def loadFunctions(self,keyTemplate,keyDatabases):
+		self.arrayFunctions.append("All")
+		for key in self.dictTp["templates"][keyTemplate][keyDatabases] :	
+			self.arrayFunctions.append(key)		
+		return self.arrayFunctions
+  			
+  		
+  
 	def getConfAndParams(self,gui,inArray,outArray):
 		if(self.dictTp["global"]["sets"]["key"]=="((sourceValue))"):
 			self.dictTp["global"]["sets"]["key"]=inArray
@@ -67,9 +85,7 @@ class GetConfiguration():
 			self.dictTp["global"]["sets"]["sTabName"]=gui.text_shorttablename.get("1.0", tk.END) 
 		
 		# print("Parametros a combobox");
-		for key in self.dictTp["templates"]:	
-			self.arrayLanguajes.append(key)
-		gui.combobox_language(gui, values=self.arrayLanguajes)
+		
   
 		
 		""" print(key)
