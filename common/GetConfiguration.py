@@ -7,9 +7,9 @@ class GetConfiguration():
 	def __init__(self,tp):
 		self.arrayValues=""
 		self.tp=tp
-		self.arrayLanguajes=[]
-		self.arrayDatabases=[]
-		self.arrayFunctions=[]
+		# self.arrayLanguajes=[]
+		# self.arrayDatabases=[]
+		# self.arrayFunctions=[]
      
 		self.dictTp=tp.getStr()
 	
@@ -41,20 +41,23 @@ class GetConfiguration():
 		print(self.dictTp["templates"])
   
 	def loadLangaujes(self):
+		arrayLanguajes=[]
 		for keyLanguaje in self.dictTp["templates"]:	
-			self.arrayLanguajes.append(keyLanguaje)		
-		return self.arrayLanguajes
+			arrayLanguajes.append(keyLanguaje)		
+		return arrayLanguajes
 	
 	def loadDatabases(self,keyTemplate):
+		arrayDatabases=[]
 		for key in self.dictTp["templates"][keyTemplate] :	
-			self.arrayDatabases.append(key)		
-		return self.arrayDatabases
+			arrayDatabases.append(key)		
+		return arrayDatabases
 
 	def loadFunctions(self,keyTemplate,keyDatabases):
-		self.arrayFunctions.append("All")
+		arrayFunctions=[]
+		arrayFunctions.append("All")
 		for key in self.dictTp["templates"][keyTemplate][keyDatabases] :	
-			self.arrayFunctions.append(key)		
-		return self.arrayFunctions
+			arrayFunctions.append(key)		
+		return arrayFunctions
   			
   		
   
