@@ -5,6 +5,10 @@ class CGuiMenu:
 	def __init__(self, config,gc):
 		self.root = tk.Tk()
 		self.root.title(config["window_title"])
+		self.selected_templates_value=""
+		self.selected_databases_value=""
+		self.selected_function_value=""
+  
 		self.gc=gc
 		# Configuración del grid para que se expanda y ocupe todo el ancho
 		for i in range(7):
@@ -44,36 +48,40 @@ class CGuiMenu:
 		self.text_box2.grid(row=1, column=3, columnspan=3, padx=10, pady=10, sticky="ew")
 
 		# Combobox para seleccionar el lenguaje de programación
-		self.label_language = tk.Label(self.root, text="Language")
-		aLangaujes = self.gc.loadLangaujes()
-		self.combobox_language = ttk.Combobox(self.root, values=aLangaujes)
-		self.combobox_language.current(0)  # Seleccionar por defecto el primer elemento
-		self.combobox_language.bind('<<ComboboxSelected>>', self.on_combobox_language_change)
+		self.label_templates = tk.Label(self.root, text="templates")
+		aTemplates = self.gc.loadLangaujes()
+		self.combobox_templates = ttk.Combobox(self.root, values=aTemplates)
+		self.combobox_templates.current(0)  # Seleccionar por defecto el primer elemento
+		self.selected_templates_value=aTemplates[0] 
+		self.combobox_templates.bind('<<ComboboxSelected>>', self.on_combobox_templates_change)
 
 
 		# Combobox para seleccionar la base de datos
-		self.label_database = tk.Label(self.root, text="Database")
-		aDatabases = self.gc.loadDatabases(aLangaujes[0])
-		self.combobox_database = ttk.Combobox(self.root, values=aDatabases)
-		self.combobox_database.current(0)  # Seleccionar por defecto el primer elemento
-		self.combobox_database.bind('<<ComboboxSelected>>', self.on_combobox_database_change)
+		self.label_databases = tk.Label(self.root, text="Database")
+		aDatabases = self.gc.loadDatabases(aTemplates[0])
+		self.combobox_databases = ttk.Combobox(self.root, values=aDatabases)
+		self.combobox_databases.current(0)  # Seleccionar por defecto el primer elemento
+		self.selected_databases_value=aDatabases[0]
+    
+		self.combobox_databases.bind('<<ComboboxSelected>>', self.on_combobox_databases_change)
 
 		# Combobox para seleccionar la función
 		self.label_function = tk.Label(self.root, text="Function")
-		aFunctions = self.gc.loadFunctions(aLangaujes[0], aDatabases[0])
-		self.combobox_function = ttk.Combobox(self.root, values=aFunctions)
-		self.combobox_function.current(0)  # Seleccionar por defecto el primer elemento
-		self.combobox_function.bind('<<ComboboxSelected>>', self.on_combobox_function_change)
+		aFunctions = self.gc.loadFunctions(aTemplates[0], aDatabases[0])
+		self.combobox_functions = ttk.Combobox(self.root, values=aFunctions)
+		self.combobox_functions.current(0)  # Seleccionar por defecto el primer elemento
+		self.selected_function_value=aFunctions[0]
+		self.combobox_functions.bind('<<ComboboxSelected>>', self.on_combobox_functions_change)
   
 		# Colocar los combobox en la grid
-		self.label_language.grid(row=2, column=0, padx=0, pady=5, sticky="ew")
-		self.combobox_language.grid(row=2, column=1, padx=2, pady=5, sticky="ew")
+		self.label_templates.grid(row=2, column=0, padx=0, pady=5, sticky="ew")
+		self.combobox_templates.grid(row=2, column=1, padx=2, pady=5, sticky="ew")
 
-		self.label_database.grid(row=2, column=2, padx=0, pady=5, sticky="ew")
-		self.combobox_database.grid(row=2, column=3, padx=2, pady=5, sticky="ew")
+		self.label_databases.grid(row=2, column=2, padx=0, pady=5, sticky="ew")
+		self.combobox_databases.grid(row=2, column=3, padx=2, pady=5, sticky="ew")
 		        
 		self.label_function.grid(row=2, column=4, padx=0, pady=5, sticky="ew")
-		self.combobox_function.grid(row=2, column=5, padx=2, pady=5, sticky="ew")
+		self.combobox_functions.grid(row=2, column=5, padx=2, pady=5, sticky="ew")
 
 		# Botón de copiar
 		self.boton_copiar = tk.Button(self.root, text=config["button_text"])
@@ -82,20 +90,26 @@ class CGuiMenu:
 		self.boton_copiar.grid(row=2, column=6, padx=10, pady=5, sticky="ew")
 
 
-	def on_combobox_language_change(self,event):
-		selected_value = self.combobox_language.get()
-		print(self.gc.loadDatabases(selected_value))
-		self.combobox_database['values']=self.gc.loadDatabases(selected_value)
-		self.combobox_database.current(0)
+	def on_combobox_templates_change(self,event):
+		self.selected_templates_value = self.combobox_templates.get()
+		# print(self.selected_templates_value," - ",self.selected_databases_value)
+		self.combobox_databases['values']=self.gc.loadDatabases(self.selected_templates_value)
+		self.combobox_databases.current(0)
+		self.selected_databases_value = self.combobox_databases.get()
+		self.combobox_functions['values']=self.gc.loadFunctions(self.selected_templates_value,self.selected_databases_value)
+		
+		self.combobox_functions.current(0)
 		# print(f"Has seleccionado: {selected_value}")
 	
-	def on_combobox_database_change(self,event):
-		selected_value = self.combobox_database.get()
-		print(f"Has seleccionado: {selected_value}")	
+	def on_combobox_databases_change(self,event):
+		self.selected_databases_value = self.combobox_databases.get()
+		self.combobox_functions['values']=self.gc.loadFunctions(self.selected_templates_value,self.selected_databases_value)
+		self.combobox_functions.current(0)
+		# print(f"Has seleccionado: {selected_value}")	
  
-	def on_combobox_function_change(self,event):
-		selected_value = self.combobox_function.get()
-		print(f"Has seleccionado: {selected_value}")	
+	def on_combobox_functions_change(self,event):
+		selected_value = self.combobox_functions.get()
+		# print(f"Has seleccionado: {selected_value}")	
 	
 	def ejecutar(self):
 		# Ejecutar el bucle principal de la ventana
