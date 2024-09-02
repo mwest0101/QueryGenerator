@@ -15,6 +15,11 @@ class CGuiMenu:
 			self.root.grid_columnconfigure(i, weight=1)
 
 		# Labels y TextBoxes para tableName, shortTableName y separator
+		self.state_isFieldId = tk.BooleanVar()
+		
+		# self.check_isFieldId = tk.Checkbutton(self.root, text = "Music", variable = self.estado_checkbox, onvalue = 1, offvalue = 0, height=5, width = 20, command=self.leer_estado_checkbox)
+		self.check_isFieldId=tk.Checkbutton(self.root,text="Is first id?", variable=self.state_isFieldId)
+  
 		self.label_fieldId = tk.Label(self.root, text="id")
 		self.text_fieldId = tk.Text(self.root, height=1, width=15)
 		self.text_fieldId.insert(1.0, self.gc.dictTp["global"]["ifNoDefinedId"]["id"]) 
@@ -40,26 +45,29 @@ class CGuiMenu:
 		
 
 		# Colocar los elementos en la grid
+		# self.label_isFieldId.grid		(row=0, 	column=0, 	padx=1, 	pady=5, 	sticky="ew")
+		self.check_isFieldId.grid		(row=1, 	column=0, 	padx=1, 	pady=0, 	sticky="ew")
+  
+		self.label_fieldId.grid			(row=0, 	column=1, 	padx=1, 	pady=5, 	sticky="ew")
+		self.text_fieldId.grid			(row=1, 	column=1, 	padx=1, 	pady=0, 	sticky="ew")
 
-		self.label_fieldId.grid			(row=0, 	column=0, 	padx=10, 	pady=5, 	sticky="ew")
-		self.text_fieldId.grid			(row=1, 	column=0, 	padx=10, 	pady=0, 	sticky="ew")
+		self.label_fieldVid.grid		(row=0, 	column=2, 	padx=1, 	pady=5, 	sticky="ew")
+		self.text_fieldVid.grid			(row=1, 	column=2, 	padx=1, 	pady=0, 	sticky="ew")
 
-		self.label_fieldVid.grid		(row=0, 	column=1, 	padx=10, 	pady=5, 	sticky="ew")
-		self.text_fieldVid.grid			(row=1, 	column=1, 	padx=10, 	pady=0, 	sticky="ew")
+		self.label_tablename.grid		(row=0, 	column=3, 	padx=1, 	pady=5, 	sticky="ew")
+		self.text_tablename.grid		(row=1, 	column=3, 	padx=1, 	pady=0, 	sticky="ew")
 
-		self.label_tablename.grid		(row=0, 	column=2, 	padx=10, 	pady=5, 	sticky="ew")
-		self.text_tablename.grid		(row=1, 	column=2, 	padx=10, 	pady=0, 	sticky="ew")
+		self.label_shorttablename.grid	(row=0, 	column=4, 	padx=1, 	pady=5, 	sticky="ew")
+		self.text_shorttablename.grid	(row=1, 	column=4, 	padx=1, 	pady=0, 	sticky="ew")
 
-		self.label_shorttablename.grid	(row=0, 	column=3, 	padx=10, 	pady=5, 	sticky="ew")
-		self.text_shorttablename.grid	(row=1, 	column=3, 	padx=10, 	pady=0, 	sticky="ew")
+		self.label_separator.grid		(row=0, 	column=5, 	padx=1, 	pady=5, 	sticky="ew")
+		self.text_separator.grid		(row=1, 	column=5, 	padx=1, 	pady=0,		sticky="ew")
 
-		self.label_separator.grid		(row=0, 	column=4, 	padx=10, 	pady=5, 	sticky="ew")
-		self.text_separator.grid		(row=1, 	column=4, 	padx=10, 	pady=0,	sticky="ew")
-
-		self.boton_salir.grid			(row=0, 	column=8, 	padx=10, 	pady=0, 	sticky="ew")
+		self.boton_salir.grid			(row=0, 	column=6, 	padx=1, 	pady=0, 	sticky="ew")
 		# TextBoxes adicionales
 		self.text_box1 = tk.Text(self.root, height=20, width=20)
 		self.loadTextBox1()
+
   
 		self.text_box2 = tk.Text(self.root, height=20, width=80)
 		
@@ -110,7 +118,14 @@ class CGuiMenu:
 
 		# Ubicar el botón en la ventana
 		self.boton_copiar.grid(row=3, column=6, padx=10, pady=5, sticky="ew")
-  
+
+	def leer_estado_checkbox(self):
+		estado = self.estado_checkbox.get()  # Obtiene el valor de la variable de control
+		if estado:
+			print("El checkbox está activo.")
+		else:
+			print("El checkbox está deshabilitado.")
+          
 	def loadTextBox1(self):
 		text=self.gc.dictTp["global"]["defaults"]["defaultFields"]
 		print("[["+text+"]]")

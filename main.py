@@ -20,8 +20,11 @@ class mainApp:
         # self.gc.showConfiguration()
 
         self.gui = CGuiMenu(self.gc)
+        
         self.gc.setGui(self.gui)
         self.eventos = EventManager(self.gui,self.gc)
+        
+        
         self.gui.boton_copiar.config(command=self.eventos.convertText)
         
 

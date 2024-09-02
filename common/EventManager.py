@@ -120,7 +120,7 @@ class EventManager:
 
 		return inArray
 
-	def convertText(self):
+	def splitAndConvert(self):
 		stc = SnakeToCamel()
 		self.inText = self.gui.text_box1.get("1.0", tk.END)	
 		
@@ -132,8 +132,12 @@ class EventManager:
 		self.outText=""		  
 		self.gui.text_box2.delete("1.0", tk.END)	
 
-		self.outArray=stc.convert(self.inArray)#	
+		self.outArray=stc.convert(self.inArray)#
 		print (self.outArray)
+
+	def convertText(self):
+		self.splitAndConvert()	
+		
 		# print("self.outArray")
 		# print(self.outArray)		
 		# self.outText=stc.getOutStr()   

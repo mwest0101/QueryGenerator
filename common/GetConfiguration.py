@@ -122,45 +122,14 @@ class GetConfiguration():
 	def getConfAndParams(self,inArray,outArray):
 		self.inArray=inArray
 		self.outArray=outArray
-		# if(self.dictTp["global"]["sets"]["key"]=="|sourceValue))"):
-		# 	self.dictTp["global"]["sets"]["key"]=inArray
-		# else:
-		# 	self.dictTp["global"]["sets"]["key"]=outArray
-   
-		# if(self.dictTp["global"]["sets"]["keys"]=="|sourceValues))"):
-		# 	self.dictTp["global"]["sets"]["keys"]=inArray
-		# else:
-		# 	self.dictTp["global"]["sets"]["keys"]=outArray
-   
-		# if(self.dictTp["global"]["sets"]["val"]=="|targetValue))"):
-		# 	self.dictTp["global"]["sets"]["val"]=outArray
-		# else:
-		# 	self.dictTp["global"]["sets"]["val"]=inArray
-   
-		# if(self.dictTp["global"]["sets"]["vals"]=="|targetValues))"):
-		# 	self.dictTp["global"]["sets"]["vals"]=outArray
-		# else:
-		# 	self.dictTp["global"]["sets"]["vals"]=inArray
-		
-
-  
+ 
 		if(self.dictTp["global"]["sets"]["bigTableName"]=="|bigTableName|"):			
 			self.dictTp["global"]["sets"]["bigTableName"]=self.rsc(self.gui.text_tablename.get("1.0", tk.END)) 
 			
 		if(self.dictTp["global"]["sets"]["smaTableName"]=="|smaTableName|"):
 			self.dictTp["global"]["sets"]["smaTableName"]=self.rsc(self.gui.text_shorttablename.get("1.0", tk.END)) 
 
-		# print("self.dictTp[\"global\"][\"sets\"][\"bigTableName\"]:"+self.dictTp["global"]["sets"]["bigTableName"] )
-		# print("self.dictTp[\"global\"][\"sets\"][\"smaTableName\"]:"+self.dictTp["global"]["sets"]["smaTableName"] )
-  
-		# print ("--getParams------------------------")
-		# print(self.dictTp)
-		# print ("-----------------------------------")
-		# print(self.arrayLanguajes)	
-#  		print(self.arrayDatabases)				
-# 		print(self.arrayFunctions)
-			
-		# print(self.dictTp)
+
 	def showConfiguration(self):		
 		print(self.dictTp["global"]["sets"]["keys"])
 		print(self.dictTp["global"]["sets"]["vals"])
