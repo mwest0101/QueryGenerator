@@ -15,10 +15,16 @@ class EventManager:
 		self.contVal=0
 		self.inArray=[]
 		self.outArray=[]
+		self.currentKey=""
   
-	def getOneKey(self):
-		valReturn=self.inArray[self.contKey]
+	def resetCounters(self):
+		self.contKey=0
+		self.contVal=0
+        
+	def getOneKey(self,inc=0):
 		self.contKey+=1
+		valReturn=self.inArray[self.contKey-1+inc]
+		
 		# print ("---->contador:",self.contKey," ",len(self.inArray)-1)
 		if self.contKey==(len(self.inArray)-1):
 			self.contKey=0
@@ -27,9 +33,10 @@ class EventManager:
 	def getContKey(self):
 		return self.contKey
 
-	def getOneVal(self):
-		valReturn=self.outArray[self.contVal]
+	def getOneVal(self,inc=0):
 		self.contVal+=1
+		valReturn=self.outArray[self.contVal-1+inc]
+		
 		if self.contVal==(len(self.inArray)-1):
 			self.contVal=0
 		return valReturn
@@ -42,7 +49,10 @@ class EventManager:
 		# print(key," - ",value)
 		
 		tempStr = ""
-  		
+		if(self.currentKey!=key):
+			self.resetCounters()
+   
+			
 		if key=="fn": 
 			strResult = strResult +"___________________________________"+"\n"
 			strResult = strResult +"-----------------------------------"+"\n"
@@ -84,21 +94,13 @@ class EventManager:
 				strResult = strResult.replace("|val|", self.getOneVal())	
     
 		if "((all_woid:" in strResult:
-			strResult = strResult.replace("((all_woid:", "")	
-			if "|key|" in strResult:	
-       		
-				tempKey=self.getOneKey()
-				if self.getContKey()>1:
-					print("contkey ",self.getContKey())
-					
-					strResult = strResult.replace("|key|", tempKey)	
+			strResult = strResult.replace("((all_woid:", "")				
+			if "|key|" in strResult:			
+				strResult = strResult.replace("|key|", self.getOneKey(1))	
 			
-			if "|val|" in strResult:	
-				tempKey=self.getOneVal()
-				if self.getContVal()>1:	
-					print("contval")					
-					strResult = strResult.replace("|val|", tempKey)	
-     
+			if "|val|" in strResult:			
+				strResult = strResult.replace("|val|", self.getOneVal(1))	
+    
 		if "|sep_in:" in strResult:			        
 			match = re.search(r'\|sep_in:([^|]+)\|', strResult)
 			charSep = match.group(1) if match else None			
@@ -125,6 +127,7 @@ class EventManager:
 
 		strResult=strResult+"\n"
 		self.gui.text_box2.insert('end',strResult)
+		self.currentKey=key
 		return strResult
 
 	def replaceText(self,dataArray):

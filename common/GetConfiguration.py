@@ -108,7 +108,7 @@ class GetConfiguration():
    
 			if "((all:" in value:						
 				# strResult = strResult.replace("((all:", "")	
-				# strResult = strResult.replace("))", "")	
+				strResult = strResult.replace("))", "")	
 				for element in self.inArray:
 					if element!="":
 						# print (".",key," - ",value," - ",element)
