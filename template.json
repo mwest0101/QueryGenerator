@@ -40,7 +40,7 @@
 						"HEAD02":"SELECT",
 						"BODY01":"(--all:|smaTableName|.|key| AS |val||sep_in:,|--)",
 						"BODY02":"FROM |bigTableName| |smaTableName|",
-						"BODY03":"WHERE |smaTableName|.|id| =:$|vId| ",
+						"BODY03":"WHERE |smaTableName|.|id| =:|vId| ",
 						"BODY04":"NATIVE_SQL;",				
 						"FOOT01":"$|smaTableName|= $this->execute($query, [",
 						"FOOT02":"new PDOParam(':|vId|', DataType::INT, $|vId|)|sep_in:,|",
