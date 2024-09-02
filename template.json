@@ -37,7 +37,7 @@
 				
 					"find":{					
 						"HEAD01":"$query = <<<NATIVE_SQL ",
-						"HEAD02":"$query = SELECT",
+						"HEAD02":"SELECT",
 						"BODY01":"(--all:|smaTableName|.|key| AS |val||sep_in:,|--)",
 						"BODY02":"FROM |bigTableName| |smaTableName|",
 						"BODY03":"WHERE |smaTableName|.|id| =:$|vId| ",
