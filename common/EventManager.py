@@ -85,16 +85,16 @@ class EventManager:
 		if "|vId|" in strResult:			
 			strResult = strResult.replace("|vId|", self.gc.dictTp["global"]["ifNoDefinedId"]["vId"])	
 
-		if "((all:" in strResult:	
-			strResult = strResult.replace("((all:", "")	
+		if "(--all:" in strResult:	
+			strResult = strResult.replace("(--all:", "")	
 			if "|key|" in strResult:			
 				strResult = strResult.replace("|key|", self.getOneKey())	
 			
 			if "|val|" in strResult:			
 				strResult = strResult.replace("|val|", self.getOneVal())	
     
-		if "((all_woid:" in strResult:
-			strResult = strResult.replace("((all_woid:", "")				
+		if "(--all_wid:" in strResult:
+			strResult = strResult.replace("(--all_wid:", "")				
 			if "|key|" in strResult:			
 				strResult = strResult.replace("|key|", self.getOneKey(1))	
 			
@@ -110,9 +110,9 @@ class EventManager:
 		# Imprimir los resultados
 
 		
-		# if "((rep_all:" in strResult:		
+		# if "(--rep_all:" in strResult:		
 		# 	self.repAll=True
-		# 	strResult = strResult.replace("((rep_all:", "")	
+		# 	strResult = strResult.replace("(--rep_all:", "")	
 		# 	strResult = strResult.replace("))", "")	
 		# 	print(self.inArray)
 		# 	self.outArray
