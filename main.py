@@ -14,17 +14,13 @@ from gui.CGuiMenu import CGuiMenu
 # Clase principal que inicializa y coordina las otras clases
 class mainApp:
     def __init__(self, template_file='template.json'):
-        self.jr=JsonReader('config.json')
+        
         self.tp=JsonReader(template_file)
         self.gc=GetConfiguration(self.tp)
-        dictTp=self.tp.getStr()
         # self.gc.showConfiguration()
 
-        self.config=self.jr.getStr()
-
-        # self.gc.loadLangaujes()
-        
-        self.gui = CGuiMenu(self.config,self.gc)
+        self.gui = CGuiMenu(self.gc)
+        self.gc.setGui(self.gui)
         self.eventos = EventManager(self.gui,self.gc)
         self.gui.boton_copiar.config(command=self.eventos.convertText)
         
