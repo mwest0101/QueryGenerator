@@ -1,2 +1,2 @@
-# QueryGenerator
-QueryGenerator
+# uniFile
+App to unify infinity of files in one

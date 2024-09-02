@@ -67,7 +67,7 @@
 						"HEAD01":"$query = <<<NATIVE_SQL",
 						"HEAD02":"UPDATE |bigTableName| ",
 						"HEAD03":"SET",
-						"BODY01":"(--r:|key|=:|val||sep_in:,|--)",
+						"BODY01":"(--all_wid:|key|=:|val||sep_in:,|--)",
 						"BODY02":"WHERE |smaTableName|.|id| =:$|vId| ",
 						"BODY03":"NATIVE_SQL;",
 						"BODY04":"$this->execute($query,[",						
