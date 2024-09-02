@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from common.SnakeToCamel import SnakeToCamel
 
 class CGuiMenu:
 	def __init__(self, gc):
@@ -8,14 +9,15 @@ class CGuiMenu:
 		self.selected_templates_value=""
 		self.selected_databases_value=""
 		self.selected_functions_value=""
-  
+		self.field1=""
 		self.gc=gc
+		self.stc = SnakeToCamel()
 		# Configuración del grid para que se expanda y ocupe todo el ancho
 		for i in range(7):
 			self.root.grid_columnconfigure(i, weight=1)
 
 		# Labels y TextBoxes para tableName, shortTableName y separator
-		self.state_isFieldId = tk.BooleanVar()
+		self.state_isFieldId = tk.BooleanVar(value=True)
 		
 		# self.check_isFieldId = tk.Checkbutton(self.root, text = "Music", variable = self.estado_checkbox, onvalue = 1, offvalue = 0, height=5, width = 20, command=self.leer_estado_checkbox)
 		self.check_isFieldId=tk.Checkbutton(self.root,text="Is first id?", variable=self.state_isFieldId)
@@ -46,7 +48,7 @@ class CGuiMenu:
 
 		# Colocar los elementos en la grid
 		# self.label_isFieldId.grid		(row=0, 	column=0, 	padx=1, 	pady=5, 	sticky="ew")
-		self.check_isFieldId.grid		(row=1, 	column=0, 	padx=1, 	pady=0, 	sticky="ew")
+		self.check_isFieldId.grid		(row=1, 	column=0, 	padx=1, 	pady=0, 	sticky="ew")		
   
 		self.label_fieldId.grid			(row=0, 	column=1, 	padx=1, 	pady=5, 	sticky="ew")
 		self.text_fieldId.grid			(row=1, 	column=1, 	padx=1, 	pady=0, 	sticky="ew")
@@ -67,11 +69,11 @@ class CGuiMenu:
 		# TextBoxes adicionales
 		self.text_box1 = tk.Text(self.root, height=20, width=20)
 		self.loadTextBox1()
-
+		self.text_box1.bind('<KeyRelease>', self.on_text_box1_change)
   
-		self.text_box2 = tk.Text(self.root, height=20, width=80)
-		
-		self.text_box1.grid(row=2, column=0, columnspan=1, padx=10, pady=30, sticky="ew")
+		self.text_box2 = tk.Text(self.root, height=20, width=80)		
+  
+		self.text_box1.grid(row=2, column=0, columnspan=1, padx=10, pady=30, sticky="ew")  		  
 		self.text_box2.grid(row=2, column=1, columnspan=7, padx=10, pady=30, sticky="ew")
 
 		# Combobox para seleccionar el lenguaje de programación
@@ -119,28 +121,76 @@ class CGuiMenu:
 		# Ubicar el botón en la ventana
 		self.boton_copiar.grid(row=3, column=6, padx=10, pady=5, sticky="ew")
 
-	def leer_estado_checkbox(self):
-		estado = self.estado_checkbox.get()  # Obtiene el valor de la variable de control
-		if estado:
-			print("El checkbox está activo.")
-		else:
-			print("El checkbox está deshabilitado.")
+	# def leer_estado_checkbox(self):
+	# 	estado = self.estado_checkbox.get()  # Obtiene el valor de la variable de control
+	# 	if estado:
+	# 		print("El checkbox está activo.")
+	# 	else:
+	# 		print("El checkbox está deshabilitado.")
           
 	def loadTextBox1(self):
 		text=self.gc.dictTp["global"]["defaults"]["defaultFields"]
 		print("[["+text+"]]")
 		strResult=""
+		cont=0
+		self.field1=""
+		
 		if "," in text:
-      
-			for value in text.split(","):
+			array=text.split(",")
+		if "\n" in text:
+			array=text.split("\n")
+			
+		if "," in text or "\n" in text:
+			for value in array:
+				if(cont==0):
+					self.field1=value
 				tempText=value+"\n"
 				strResult+=tempText
-
+				cont+=1
 			strResult=strResult[:-1]
 		else:
 			strResult+=value
-
+		if(self.state_isFieldId.get()==True):
+			self.text_fieldId.delete("1.0", tk.END)
+			self.text_fieldId.insert('end',self.field1)
+			
+  
 		self.text_box1.insert('end',strResult)
+		return strResult
+
+
+        
+	def loadTextBox2(self):
+		text=self.text_box1.get("1.0", tk.END)
+    
+		strResult=""
+		cont=0
+		self.field1=""
+		if "," in text:
+			array=text.split(",")
+		if "\n" in text:
+			array=text.split("\n")
+			
+		if "," in text or "\n" in text:
+
+			for value in array:
+				if(cont==0):
+					self.field1=value
+				tempText=value+"\n"
+				strResult+=tempText
+				cont+=1
+			strResult=strResult[:-1]
+		else:
+			strResult+=value
+		if(self.state_isFieldId.get()==True):
+			self.text_fieldId.delete("1.0", tk.END)
+			self.text_fieldId.insert('end',self.field1)
+			self.text_fieldVid.delete("1.0", tk.END)
+			self.text_fieldVid.insert('end',self.stc.snakeToCamelCase(self.field1))
+			
+			
+  
+		# self.text_box1.insert('end',strResult)
 		return strResult
 
 	def on_combobox_templates_change(self,event):
@@ -165,6 +215,11 @@ class CGuiMenu:
 		self.selected_functions_value = self.combobox_functions.get()
 		print(f"Has seleccionado: {self.selected_functions_value}")	
 	
+	def on_text_box1_change(self,event):
+		
+		print("pase")
+		self.loadTextBox2()
+  
 	def ejecutar(self):
 		# Ejecutar el bucle principal de la ventana
 		self.root.mainloop()

@@ -93,6 +93,7 @@ class GetConfiguration():
 				arrayKeyAndValue.append([key1,partialDict[key1]])
 		
 		return arrayKeyAndValue
+
 	def repeatStrs(self,inArrayStr):
 		newArray=[]
 		
@@ -103,14 +104,26 @@ class GetConfiguration():
 		for key,value in inArrayStr:
 			
 			print (".",key," - ",value)
-			strResult=value
-			if "((rep_all:" in value:						
-				strResult = strResult.replace("((rep_all:", "")	
-				strResult = strResult.replace("))", "")	
+			strResult=value	
+   
+			if "((all:" in value:						
+				# strResult = strResult.replace("((all:", "")	
+				# strResult = strResult.replace("))", "")	
 				for element in self.inArray:
 					if element!="":
-						print (".",key," - ",value," - ",element)
+						# print (".",key," - ",value," - ",element)
 						newArray.append([key,strResult])
+			elif "((all_woid:" in value:						
+				# strResult = strResult.replace("((all_woid:", "")	
+				strResult = strResult.replace("))", "")	
+				cont=0
+				for element in self.inArray:					
+					if element!="":
+						# print (".",key," - ",value," - ",element)
+						if(cont==0):
+							cont+=1
+						else:
+							newArray.append([key,strResult])
 			else:
 				newArray.append([key,strResult])
 		print("----------------------------------")
@@ -122,12 +135,20 @@ class GetConfiguration():
 	def getConfAndParams(self,inArray,outArray):
 		self.inArray=inArray
 		self.outArray=outArray
- 
+		
 		if(self.dictTp["global"]["sets"]["bigTableName"]=="|bigTableName|"):			
 			self.dictTp["global"]["sets"]["bigTableName"]=self.rsc(self.gui.text_tablename.get("1.0", tk.END)) 
 			
 		if(self.dictTp["global"]["sets"]["smaTableName"]=="|smaTableName|"):
 			self.dictTp["global"]["sets"]["smaTableName"]=self.rsc(self.gui.text_shorttablename.get("1.0", tk.END)) 
+   
+		if(self.dictTp["global"]["ifNoDefinedId"]["id"]=="|id|"):
+			self.gc.dictTp["global"]["ifNoDefinedId"]["id"]=self.rsc(self.gui.text_fieldId.get("1.0", tk.END)) 
+   
+		if(self.dictTp["global"]["ifNoDefinedId"]["vId"]=="|vId|"):
+			self.gc.dictTp["global"]["ifNoDefinedId"]["vId"]=self.rsc(self.gui.text_fieldVid.get("1.0", tk.END)) 
+
+
 
 
 	def showConfiguration(self):		

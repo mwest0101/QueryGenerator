@@ -38,7 +38,7 @@
 					"find":{					
 						"HEAD01":"$query = <<<NATIVE_SQL ",
 						"HEAD02":"$query = SELECT",
-						"BODY01":"((rep_all:|smaTableName|.|key| AS |val||sep_in:,|))",
+						"BODY01":"((all:|smaTableName|.|key| AS |val||sep_in:,|))",
 						"FOOT01":"FROM |bigTableName| |smaTableName|",
 						"FOOT02":"WHERE |smaTableName|.|id| =:$|id| ",
 						"FOOT03":"NATIVE_SQL;"				
@@ -46,31 +46,29 @@
 					"search":{
 						"HEAD01":"$query = <<<NATIVE_SQL ",
 						"HEAD02":"SELECT",
-						"BODY01":"((rep_all:|smaTableName|.|key| AS |val||sep_in:,|))",
+						"BODY01":"((all:|smaTableName|.|key| AS |val||sep_in:,|))",
 						"FOOT01":"FROM |bigTableName| |smaTableName|",						
 						"FOOT02":"NATIVE_SQL;"				
 					},
 					"insert":{			   
-						"CONF01":"((NO_ID_IN_REPEAT))",
 						"HEAD01":"$query = <<<NATIVE_SQL",
 						"HEAD02":"INSERT |bigTableName| (",
-						"BODY01":"((rep_all:|key||sep_in:,|))",
+						"BODY01":"((all_woid:|key||sep_in:,|))",
 						"BODY02":") VALUES (",
-						"BODY03":"((rep_all:|val||sep_in:,|))",
+						"BODY03":"((all_woid:|val||sep_in:,|))",
 						"BODY04":"$this->execute($query,[",						
-						"BODY05":"((rep_all:new PDOParam(':|val|',DataType::STRING,$classFactory()->|val||sep_in:,|))",
+						"BODY05":"((all_woid:new PDOParam(':|val|',DataType::STRING,$classFactory()->|val||sep_in:,|))",
 						"FOOT01":"] );"
 					},
-					"save":{			   
-						"CONF01":"((NO_ID_IN_REPEAT))",
+					"save":{			   						
 						"HEAD01":"$query = <<<NATIVE_SQL",
 						"HEAD02":"UPDATE |bigTableName| ",
 						"HEAD03":"SET",
-						"BODY01":"((rep_all:|key|=:|val||sep_in:,|))",
+						"BODY01":"((r:|key|=:|val||sep_in:,|))",
 						"BODY02":"WHERE |smaTableName|.|id| =:$|vId| ",
 						"BODY03":"NATIVE_SQL;",
 						"BODY04":"$this->execute($query,[",						
-						"BODY05":"((rep_all:new PDOParam(':|val|',DataType::STRING,$classFactory->|val||sep_in:,|))",
+						"BODY05":"((all_woid:new PDOParam(':|val|',DataType::STRING,$classFactory->|val||sep_in:,|))",
 						"FOOT01":"] );"
 					}
 

@@ -15,7 +15,7 @@ class EventManager:
 		self.contVal=0
 		self.inArray=[]
 		self.outArray=[]
-	
+  
 	def getOneKey(self):
 		valReturn=self.inArray[self.contKey]
 		self.contKey+=1
@@ -24,13 +24,19 @@ class EventManager:
 			self.contKey=0
 		return valReturn
 
+	def getContKey(self):
+		return self.contKey
+
 	def getOneVal(self):
 		valReturn=self.outArray[self.contVal]
 		self.contVal+=1
 		if self.contVal==(len(self.inArray)-1):
 			self.contVal=0
 		return valReturn
-  
+
+	def getContVal(self):
+		return self.contVal
+
 	def strReplaces(self,key="",value=""):
 		strResult=""		
 		# print(key," - ",value)
@@ -61,13 +67,38 @@ class EventManager:
 
 		if "|bigTableName|" in strResult:			
 			strResult = strResult.replace("|bigTableName|", self.gc.dictTp["global"]["sets"]["bigTableName"])	
-		
-		if "|key|" in strResult:			
-			strResult = strResult.replace("|key|", self.getOneKey())	
-		
-		if "|val|" in strResult:			
-			strResult = strResult.replace("|val|", self.getOneVal())	
-		
+
+		if "|id|" in strResult:			
+			strResult = strResult.replace("|id|", self.gc.dictTp["global"]["ifNoDefinedId"]["id"])		
+
+
+		if "|vId|" in strResult:			
+			strResult = strResult.replace("|vId|", self.gc.dictTp["global"]["ifNoDefinedId"]["vId"])	
+
+		if "((all:" in strResult:	
+			strResult = strResult.replace("((all:", "")	
+			if "|key|" in strResult:			
+				strResult = strResult.replace("|key|", self.getOneKey())	
+			
+			if "|val|" in strResult:			
+				strResult = strResult.replace("|val|", self.getOneVal())	
+    
+		if "((all_woid:" in strResult:
+			strResult = strResult.replace("((all_woid:", "")	
+			if "|key|" in strResult:	
+       		
+				tempKey=self.getOneKey()
+				if self.getContKey()>1:
+					print("contkey ",self.getContKey())
+					
+					strResult = strResult.replace("|key|", tempKey)	
+			
+			if "|val|" in strResult:	
+				tempKey=self.getOneVal()
+				if self.getContVal()>1:	
+					print("contval")					
+					strResult = strResult.replace("|val|", tempKey)	
+     
 		if "|sep_in:" in strResult:			        
 			match = re.search(r'\|sep_in:([^|]+)\|', strResult)
 			charSep = match.group(1) if match else None			
@@ -137,21 +168,11 @@ class EventManager:
 
 	def convertText(self):
 		self.splitAndConvert()	
-		
-		# print("self.outArray")
-		# print(self.outArray)		
-		# self.outText=stc.getOutStr()   
-		# print(self.outText)
 		self.gc.getConfAndParams(self.inArray,self.outArray)
-		# # self.gc.showConfiguration()
-		# # self.dictTp["global"]["sets"]["keys"]="test"						
-		# # self.gui.text_box2.insert(tk.END, self.outText)   
-  
 		partialDict=self.gc.loadPartialDict()
 		inArrayStr = self.gc.loadStringSelected(partialDict)
 		inArrayStr = self.gc.repeatStrs(inArrayStr)
-		
-   
+  
 		strResult=self.replaceText(inArrayStr)
 		self.gc.showConfiguration()
 		
