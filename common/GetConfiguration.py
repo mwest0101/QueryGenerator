@@ -22,7 +22,7 @@ class GetConfiguration():
 	def getStr(self):
 		# print (self.config)
 		return self.config
-
+	
 	def setGui(self,gui):
 		self.gui=gui
   
@@ -99,11 +99,11 @@ class GetConfiguration():
 		
 		# self.inArray
 		# self.outArray
-		print("___________________________________")
-		print("---checkRepat----------------------")
+		# print("___________________________________")
+		# print("---checkRepat----------------------")
 		for key,value in inArrayStr:
 			
-			print (".",key," - ",value)
+			# print (".",key," - ",value)
 			strResult=value	
    
 			if "(--all:" in value:						
@@ -126,7 +126,7 @@ class GetConfiguration():
 							newArray.append([key,strResult])
 			else:
 				newArray.append([key,strResult])
-		print("----------------------------------")
+		# print("----------------------------------")
 		return newArray
   
 	def rsc(self,strResult): 
@@ -136,17 +136,18 @@ class GetConfiguration():
 		self.inArray=inArray
 		self.outArray=outArray
 		
-		if(self.dictTp["global"]["sets"]["bigTableName"]=="|bigTableName|"):			
-			self.dictTp["global"]["sets"]["bigTableName"]=self.rsc(self.gui.text_tablename.get("1.0", tk.END))
+		# if(self.dictTp["global"]["sets"]["bigTableName"]=="|bigTableName|"):			
+		self.dictTp["global"]["sets"]["bigTableName"]=self.rsc(self.gui.text_tablename.get("1.0", tk.END))
 			
-		if(self.dictTp["global"]["sets"]["smaTableName"]=="|smaTableName|"):
-			self.dictTp["global"]["sets"]["smaTableName"]=self.rsc(self.gui.text_shorttablename.get("1.0", tk.END))
+		# if(self.dictTp["global"]["sets"]["smaTableName"]=="|smaTableName|"):
+		self.dictTp["global"]["sets"]["smaTableName"]=self.rsc(self.gui.text_shorttablename.get("1.0", tk.END))	
    
-		if(self.dictTp["global"]["ifNoDefinedId"]["id"]=="|id|"):
-			self.gc.dictTp["global"]["ifNoDefinedId"]["id"]=self.rsc(self.gui.text_fieldId.get("1.0", tk.END))
    
-		if(self.dictTp["global"]["ifNoDefinedId"]["vId"]=="|vId|"):
-			self.gc.dictTp["global"]["ifNoDefinedId"]["vId"]=self.rsc(self.gui.text_fieldVid.get("1.0", tk.END))
+		# if(self.dictTp["global"]["ifNoDefinedId"]["id"]=="|id|"):
+		self.dictTp["global"]["ifNoDefinedId"]["id"]=self.rsc(self.gui.text_fieldId.get("1.0", tk.END))
+   
+		# if(self.dictTp["global"]["ifNoDefinedId"]["vId"]=="|vId|"):
+		self.dictTp["global"]["ifNoDefinedId"]["vId"]=self.rsc(self.gui.text_fieldVid.get("1.0", tk.END))
 
 
 
@@ -158,3 +159,6 @@ class GetConfiguration():
 		print(self.dictTp["global"]["sets"]["smaTableName"])
 		print(self.dictTp["global"]["sets"]["sep"])
 		print(self.dictTp["templates"])
+
+	def getPathFileHistory(self):
+		return self.dictTp["global"]["history"]["filename"]

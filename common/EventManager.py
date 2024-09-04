@@ -4,12 +4,13 @@ from common.SnakeToCamel import SnakeToCamel
 
 
 class EventManager:
-	def __init__(self, gui,gc):
+	def __init__(self, gui,gc,fh):
 		self.gui = gui
 		# self.text_box2 = text_box2
 		self.inText=""
 		self.outText=""
 		self.gc=gc
+		self.fh=fh
 		self.repAll=False
 		self.contKey=0
 		self.contVal=0
@@ -54,11 +55,10 @@ class EventManager:
    
 			
 		if key=="fn": 
-			strResult = strResult +"___________________________________"+"\n"
-			strResult = strResult +"-----------------------------------"+"\n"
-			strResult = strResult +"---"+value.upper()+"\n"
-			strResult = strResult +"-----------------------------------"+"\n"
-			strResult += value
+			strResult = strResult +"\n_______________________"+"\n"	
+			strResult = strResult +"[[[ "+value.upper()+" ]]]\n"
+			# strResult = strResult +"-----------------------------------"
+			# strResult += value
 		else:
 			strResult = value
 		# if "HEAD" in key: 
@@ -72,7 +72,7 @@ class EventManager:
 		
 		if "|smaTableName|" in strResult:			
 			strResult = strResult.replace("|smaTableName|", self.gc.dictTp["global"]["sets"]["smaTableName"])		
-			print("Entre")
+			# print("Entre")
 
 
 		if "|bigTableName|" in strResult:			
@@ -125,8 +125,10 @@ class EventManager:
 		
 		print(key," - ",strResult)
 
+
 		strResult=strResult+"\n"
-		self.gui.text_box2.insert('end',strResult)
+		# self.gui.text_box2.insert('end',strResult)
+		
 		self.currentKey=key
 		return strResult
 
@@ -135,7 +137,10 @@ class EventManager:
 		key=""
 		value=""
 		for key,value in dataArray:				
-			strResult=strResult+self.strReplaces(key,value)
+			lineResult=self.strReplaces(key,value)
+			
+			self.gui.text_box2.insert('end',lineResult)
+			strResult=strResult+lineResult
    
 		return strResult	
 	def clearStr(self,strIn):
@@ -160,9 +165,9 @@ class EventManager:
 		
 		self.inText=self.clearStr(self.inText)
 		self.inArray = self.splitTextArea(self.inText)
-		print("========================================") 	  
-		print(self.inArray) 	  
-		print("========================================") 	  
+		# print("========================================") 	  
+		# print(self.inArray) 	  
+		# print("========================================") 	  
 		self.outText=""		  
 		self.gui.text_box2.delete("1.0", tk.END)	
 
@@ -170,14 +175,32 @@ class EventManager:
 		print (self.outArray)
 
 	def convertText(self):
+		
 		self.splitAndConvert()	
 		self.gc.getConfAndParams(self.inArray,self.outArray)
 		partialDict=self.gc.loadPartialDict()
 		inArrayStr = self.gc.loadStringSelected(partialDict)
 		inArrayStr = self.gc.repeatStrs(inArrayStr)
+		self.fh.insertHead(self.gc)
   
+		strArrayConc=""
+		for i  in range(len(self.inArray)):
+			strArrayConc+="<b>"+self.inArray[i]+ "</b> = " +self.outArray[i]+"\n"
+   
 		strResult=self.replaceText(inArrayStr)
-		self.gc.showConfiguration()
+  		
+		strResultHtml = strResult.replace("\n","</br>\n")				
+		strResultHtml = strResultHtml.replace("_______________________</br>","</td></tr><tr><td>\n")				
+		strResultHtml =	strResultHtml .replace("[[[","<h2>")
+		strResultHtml =	strResultHtml .replace("]]]","</h2>")
+		strResultHtml = strResultHtml.replace("</br></br>","</br>\n")	
+		strResultHtml = strResultHtml.replace("</br>\n</br>","</br>\n")	
+     
+		self.fh.insertRow(strArrayConc.replace("\n","</br>\n"),strResultHtml)
+		self.fh.insertFoot()
+	    
+		self.fh.printTable()
+		# self.gc.showConfiguration()
 		
 
 	def copiar_texto(self):
