@@ -67,14 +67,14 @@ class CGuiMenu:
 
 		self.boton_salir.grid			(row=0, 	column=6, 	padx=1, 	pady=0, 	sticky="ew")
 		# TextBoxes adicionales
-		self.text_box1 = tk.Text(self.root, height=20, width=20)
+		self.text_box1 = tk.Text(self.root, height=20, width=40)
 		self.loadTextBox1()
 		self.text_box1.bind('<KeyRelease>', self.on_text_box1_change)
   
-		self.text_box2 = tk.Text(self.root, height=20, width=80)		
+		self.text_box2 = tk.Text(self.root, height=20, width=60)		
   
-		self.text_box1.grid(row=2, column=0, columnspan=1, padx=10, pady=30, sticky="ew")  		  
-		self.text_box2.grid(row=2, column=1, columnspan=7, padx=10, pady=30, sticky="ew")
+		self.text_box1.grid(row=2, column=0, columnspan=2, padx=10, pady=30, sticky="ew")  		  
+		self.text_box2.grid(row=2, column=2, columnspan=6, padx=10, pady=30, sticky="ew")
 
 		# Combobox para seleccionar el lenguaje de programación
 		self.label_templates = tk.Label(self.root, text="templates")
