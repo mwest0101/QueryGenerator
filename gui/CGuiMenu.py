@@ -130,7 +130,7 @@ class CGuiMenu:
           
 	def loadTextBox1(self):
 		text=self.gc.dictTp["global"]["defaults"]["defaultFields"]
-		print("[["+text+"]]")
+		# print("[["+text+"]]")
 		strResult=""
 		cont=0
 		self.field1=""
@@ -213,11 +213,11 @@ class CGuiMenu:
  
 	def on_combobox_functions_change(self,event):
 		self.selected_functions_value = self.combobox_functions.get()
-		print(f"Has seleccionado: {self.selected_functions_value}")	
+		# print(f"Has seleccionado: {self.selected_functions_value}")	
 	
 	def on_text_box1_change(self,event):
 		
-		print("pase")
+		# print("pase")
 		self.loadTextBox2()
   
 	def ejecutar(self):

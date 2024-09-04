@@ -96,3 +96,119 @@ new PDOParam(':userEmail',DataType::STRING,$classFactory->userEmail()),</br>
 ] );</br>
 </td><tr></table></td></tr></table>
 <br/><br/>
+<style>
+tr:nth-child(even) {background-color: #E0E0E0;
+td{text-align:left;vertical-align:top}
+th{text-align:center;}
+</style>
+
+<table  class="allQuery" border=1 width=80% >
+<tr><th>Date/Time</th><th>Is First id</th><th>id</th><th>Var Id</th><th>TableName</th><th>Short Table Name</th></tr>
+<tr><td>04/09/2024 02:02:20</td><td>ut</td><td>id</td><td>id</td><td>userTable</td><td>ut</td></tr>
+<tr><td colspan=2><b>id</b> = id</br>
+<b>name			code		</b> = name			code		</br>
+<b>audit_trial_user_id	audit_trial_created_at		</b> = auditTrialUserId	auditTrialCreatedAt		</br>
+<b>audit_trial_updated_at		</b> = auditTrialUpdatedAt		</br>
+<b>audit_trial_deleted	audit_trial_deleted_at		</b> = auditTrialDeleted	auditTrialDeletedAt		</br>
+<b>audit_trial_active		</b> = auditTrialActive		</br>
+<b></b> = </br>
+</td><td colspan=4><table class="oneQuery" border=1 width=100% ><tr><td>
+</br>
+</td></tr><tr><td>
+
+<h2> ALL </h2></br>
+
+</br>
+</td></tr><tr><td>
+
+<h2> FIND </h2></br>
+
+$query = <<<NATIVE_SQL</br>
+SELECT</br>
+ut.id as id,</br>
+ut.name			code		 as name			code		,</br>
+ut.audit_trial_user_id	audit_trial_created_at		 as auditTrialUserId	auditTrialCreatedAt		,</br>
+ut.audit_trial_updated_at		 as auditTrialUpdatedAt		,</br>
+ut.audit_trial_deleted	audit_trial_deleted_at		 as auditTrialDeleted	auditTrialDeletedAt		,</br>
+ut.audit_trial_active		 as auditTrialActive		,</br>
+FROM userTable ut</br>
+WHERE ut.id =:id </br>
+NATIVE_SQL;</br>
+$ut= $this->execute($query, [</br>
+new PDOParam(':id', DataType::INT, $id),</br>
+], $this->toBoxType); </br>
+
+</td></tr><tr><td>
+
+<h2> SEARCH </h2></br>
+
+$query = <<<NATIVE_SQL</br>
+SELECT</br>
+ut.id as id,</br>
+ut.name			code		 as name			code		,</br>
+ut.audit_trial_user_id	audit_trial_created_at		 as auditTrialUserId	auditTrialCreatedAt		,</br>
+ut.audit_trial_updated_at		 as auditTrialUpdatedAt		,</br>
+ut.audit_trial_deleted	audit_trial_deleted_at		 as auditTrialDeleted	auditTrialDeletedAt		,</br>
+ut.audit_trial_active		 as auditTrialActive		,</br>
+FROM userTable ut</br>
+NATIVE_SQL;</br>
+
+</td></tr><tr><td>
+
+<h2> INSERT </h2></br>
+
+$query = <<<NATIVE_SQL</br>
+INSERT userTable (</br>
+name			code		,</br>
+audit_trial_user_id	audit_trial_created_at		,</br>
+audit_trial_updated_at		,</br>
+audit_trial_deleted	audit_trial_deleted_at		,</br>
+audit_trial_active		,</br>
+) VALUES (</br>
+name			code		,</br>
+auditTrialUserId	auditTrialCreatedAt		,</br>
+auditTrialUpdatedAt		,</br>
+auditTrialDeleted	auditTrialDeletedAt		,</br>
+auditTrialActive		,</br>
+)</br>
+NATIVE_SQL;</br>
+$this->execute($query,[</br>
+new PDOParam(':name			code		',DataType::STRING,$classFactory()->name			code		()),</br>
+new PDOParam(':auditTrialUserId	auditTrialCreatedAt		',DataType::STRING,$classFactory()->auditTrialUserId	auditTrialCreatedAt		()),</br>
+new PDOParam(':auditTrialUpdatedAt		',DataType::STRING,$classFactory()->auditTrialUpdatedAt		()),</br>
+new PDOParam(':auditTrialDeleted	auditTrialDeletedAt		',DataType::STRING,$classFactory()->auditTrialDeleted	auditTrialDeletedAt		()),</br>
+new PDOParam(':auditTrialActive		',DataType::STRING,$classFactory()->auditTrialActive		()),</br>
+] );</br>
+return new ut(</br>
+(int)$this->getLastInsertedId(),</br>
+$ut->id(),</br>
+$ut->name			code		(),</br>
+$ut->auditTrialUserId	auditTrialCreatedAt		(),</br>
+$ut->auditTrialUpdatedAt		(),</br>
+$ut->auditTrialDeleted	auditTrialDeletedAt		(),</br>
+$ut->auditTrialActive		(),</br>
+);</br>
+
+</td></tr><tr><td>
+
+<h2> SAVE </h2></br>
+
+$query = <<<NATIVE_SQL</br>
+UPDATE userTable </br>
+SET</br>
+name			code		=:name			code		,</br>
+audit_trial_user_id	audit_trial_created_at		=:auditTrialUserId	auditTrialCreatedAt		,</br>
+audit_trial_updated_at		=:auditTrialUpdatedAt		,</br>
+audit_trial_deleted	audit_trial_deleted_at		=:auditTrialDeleted	auditTrialDeletedAt		,</br>
+audit_trial_active		=:auditTrialActive		,</br>
+WHERE ut.id =:$id </br>
+NATIVE_SQL;</br>
+$this->execute($query,[</br>
+new PDOParam(':name			code		',DataType::STRING,$classFactory->name			code		()),</br>
+new PDOParam(':auditTrialUserId	auditTrialCreatedAt		',DataType::STRING,$classFactory->auditTrialUserId	auditTrialCreatedAt		()),</br>
+new PDOParam(':auditTrialUpdatedAt		',DataType::STRING,$classFactory->auditTrialUpdatedAt		()),</br>
+new PDOParam(':auditTrialDeleted	auditTrialDeletedAt		',DataType::STRING,$classFactory->auditTrialDeleted	auditTrialDeletedAt		()),</br>
+new PDOParam(':auditTrialActive		',DataType::STRING,$classFactory->auditTrialActive		()),</br>
+] );</br>
+</td><tr></table></td></tr></table>
+<br/><br/>
