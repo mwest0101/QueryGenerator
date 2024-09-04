@@ -148,16 +148,20 @@ class EventManager:
       
 			strIn=strIn.replace("\n\n","\n")
 			strIn=strIn.replace("\n\0","")
+			strIn=strIn.strip()
 			self.clearStr(strIn)
 		
 		return strIn
 	def splitTextArea(self,strIn):
+		arrayClean=[]
 		if "," in strIn:
 			inArray = strIn.split(',')
 		else:
 			inArray = strIn.split('\n')
+		for data in inArray:
+			arrayClean.append(data.strip())
 
-		return inArray
+		return arrayClean
 
 	def splitAndConvert(self):
 		stc = SnakeToCamel()
