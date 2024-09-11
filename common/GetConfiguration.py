@@ -130,7 +130,9 @@ class GetConfiguration():
 		return newArray
   
 	def rsc(self,strResult): 
-		return strResult.replace("\n","")
+		strResult=strResult.replace("\n","")
+		strResult=strResult.strip()
+		return strResult
 
 	def getConfAndParams(self,inArray,outArray):
 		self.inArray=inArray

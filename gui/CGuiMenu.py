@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import *
 from tkinter import ttk
 from common.SnakeToCamel import SnakeToCamel
 
@@ -12,6 +13,7 @@ class CGuiMenu:
 		self.field1=""
 		self.gc=gc
 		self.stc = SnakeToCamel()
+		self.scroll = Scrollbar(self.root, orient=HORIZONTAL)
 		# Configuración del grid para que se expanda y ocupe todo el ancho
 		for i in range(7):
 			self.root.grid_columnconfigure(i, weight=1)
@@ -67,11 +69,11 @@ class CGuiMenu:
 
 		self.boton_salir.grid			(row=0, 	column=6, 	padx=1, 	pady=0, 	sticky="ew")
 		# TextBoxes adicionales
-		self.text_box1 = tk.Text(self.root, height=20, width=40)
+		self.text_box1 = tk.Text(self.root, height=20, width=40, yscrollcommand=self.scroll.set)
 		self.loadTextBox1()
 		self.text_box1.bind('<KeyRelease>', self.on_text_box1_change)
   
-		self.text_box2 = tk.Text(self.root, height=20, width=60)		
+		self.text_box2 = tk.Text(self.root, height=20, width=60, yscrollcommand=self.scroll.set)		
   
 		self.text_box1.grid(row=2, column=0, columnspan=2, padx=10, pady=30, sticky="ew")  		  
 		self.text_box2.grid(row=2, column=2, columnspan=6, padx=10, pady=30, sticky="ew")
@@ -106,20 +108,20 @@ class CGuiMenu:
 		self.combobox_functions.bind('<<ComboboxSelected>>', self.on_combobox_functions_change)
   
 		# Colocar los combobox en la grid
-		self.label_templates.grid(row=3, column=0, padx=0, pady=5, sticky="ew")
-		self.combobox_templates.grid(row=3, column=1, padx=2, pady=5, sticky="ew")
+		self.label_templates.grid(row=3, column=0, padx=0, pady=5, sticky="es")
+		self.combobox_templates.grid(row=3, column=1, padx=2, pady=5, sticky="es")
 
-		self.label_databases.grid(row=3, column=2, padx=0, pady=5, sticky="ew")
-		self.combobox_databases.grid(row=3, column=3, padx=2, pady=5, sticky="ew")
+		self.label_databases.grid(row=3, column=2, padx=0, pady=5, sticky="es")
+		self.combobox_databases.grid(row=3, column=3, padx=2, pady=5, sticky="es")
 		        
-		self.label_function.grid(row=3, column=4, padx=0, pady=5, sticky="ew")
-		self.combobox_functions.grid(row=3, column=5, padx=2, pady=5, sticky="ew")
+		self.label_function.grid(row=3, column=4, padx=0, pady=5, sticky="es")
+		self.combobox_functions.grid(row=3, column=5, padx=2, pady=5, sticky="es")
 
 		# Botón de copiar
 		self.boton_copiar = tk.Button(self.root, text="Convert")
 
 		# Ubicar el botón en la ventana
-		self.boton_copiar.grid(row=3, column=6, padx=10, pady=5, sticky="ew")
+		self.boton_copiar.grid(row=3, column=6, padx=10, pady=5, sticky="es")
 
 	# def leer_estado_checkbox(self):
 	# 	estado = self.estado_checkbox.get()  # Obtiene el valor de la variable de control

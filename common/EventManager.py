@@ -175,7 +175,10 @@ class EventManager:
 		self.outText=""		  
 		self.gui.text_box2.delete("1.0", tk.END)	
 
-		self.outArray=stc.convert(self.inArray)#
+		self.outArray=stc.convert(self.inArray)
+		print("========================================")
+		print (self.inArray)
+		print("========================================")
 		print (self.outArray)
 
 	def convertText(self):
